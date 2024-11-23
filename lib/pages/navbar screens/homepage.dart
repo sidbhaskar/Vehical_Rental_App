@@ -110,7 +110,7 @@ class _HomepageState extends State<Homepage> {
                           itemBuilder: (context, index) {
                             return CircularCategories(
                               categoryName:
-                                  snapshot.data!.docs[index].data()['Catagory'],
+                                  snapshot.data!.docs[index].data()['catagory'],
                               imageURL:
                                   snapshot.data!.docs[index].data()['imageURL'],
                             );
@@ -154,48 +154,50 @@ class _HomepageState extends State<Homepage> {
                     ),
                     // Grid
                     StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection('vehicles')
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                          if (!snapshot.hasData) {
-                            return const Text('No data here');
-                          }
-                          return Expanded(
-                            child: GridView.builder(
-                              controller: scrollController,
-                              padding: const EdgeInsets.all(18),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                                childAspectRatio: 1 / 1.3,
-                              ),
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (context, index) {
-                                return HomeCarCategories(
-                                  carName:
-                                      snapshot.data!.docs[index].data()['Name'],
-                                  carLocation: snapshot.data!.docs[index]
-                                      .data()['Location'],
-                                  price: snapshot.data!.docs[index]
-                                      .data()['Price'],
-                                  seatCount: snapshot.data!.docs[index]
-                                      .data()['Seater'],
-                                  imageURL: snapshot.data!.docs[index]
-                                      .data()['imageURL'],
-                                );
-                              },
-                            ),
+                      stream: FirebaseFirestore.instance
+                          .collection('vehicles')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
-                        }),
+                        }
+                        if (!snapshot.hasData) {
+                          return const Text('No data here');
+                        }
+                        return Expanded(
+                          child: GridView.builder(
+                            controller: scrollController,
+                            padding: const EdgeInsets.all(18),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 1 / 1.3,
+                            ),
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              return HomeCarCategories(
+                                vehicleID: snapshot.data!.docs[index].id,
+                                carName:
+                                    snapshot.data!.docs[index].data()['name'],
+                                carLocation: snapshot.data!.docs[index]
+                                    .data()['location'],
+                                price:
+                                    snapshot.data!.docs[index].data()['price'],
+                                seatCount:
+                                    snapshot.data!.docs[index].data()['seater'],
+                                imageURL: snapshot.data!.docs[index]
+                                    .data()['imageURL'],
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               );
