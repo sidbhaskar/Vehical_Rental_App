@@ -88,7 +88,9 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
+        backgroundColor: Colors.grey[50],
         title: const Text('Booking Request'),
         centerTitle: true,
       ),
@@ -97,11 +99,17 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Vehicle Summary
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
               ),
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -127,14 +135,15 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
                           Text(
                             widget.vehicleData['name'],
                             style: const TextStyle(
-                              fontSize: 18,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 8),
                           Text(
                             '₹${widget.vehicleData['price']}/hr',
                             style: const TextStyle(
+                              fontSize: 16,
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
                             ),
@@ -147,74 +156,155 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
               ),
             ),
             const SizedBox(height: 24),
-
-            // Date and Time Selection
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Pickup & Return',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                    const Row(
+                      children: [
+                        Icon(Icons.calendar_today,
+                            color: Colors.blue, size: 20),
+                        SizedBox(width: 10),
+                        Text(
+                          'Schedule',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () => _pickDateTime(context, true),
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade50,
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: Colors.grey.shade200),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.access_time,
+                                color: Colors.blue.shade300),
+                            const SizedBox(width: 12),
+                            Text(
+                              _startDateTime == null
+                                  ? 'Select Start Date & Time'
+                                  : DateFormat('MMM dd, yyyy - HH:mm')
+                                      .format(_startDateTime!),
+                              style: TextStyle(
+                                color: _startDateTime == null
+                                    ? Colors.grey.shade600
+                                    : Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 16),
-                    ListTile(
-                      leading: const Icon(Icons.calendar_today),
-                      title: Text(_startDateTime == null
-                          ? 'Select Start Date & Time'
-                          : 'Start: ${DateFormat('yyyy-MM-dd HH:mm').format(_startDateTime!)}'),
-                      onTap: () => _pickDateTime(context, true),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      leading: const Icon(Icons.calendar_today),
-                      title: Text(_endDateTime == null
-                          ? 'Select End Date & Time'
-                          : 'End: ${DateFormat('yyyy-MM-dd HH:mm').format(_endDateTime!)}'),
+                    GestureDetector(
                       onTap: () => _pickDateTime(context, false),
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade50,
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: Colors.grey.shade200),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.access_time,
+                                color: Colors.blue.shade300),
+                            const SizedBox(width: 12),
+                            Text(
+                              _endDateTime == null
+                                  ? 'Select End Date & Time'
+                                  : DateFormat('MMM dd, yyyy - HH:mm')
+                                      .format(_endDateTime!),
+                              style: TextStyle(
+                                color: _endDateTime == null
+                                    ? Colors.grey.shade600
+                                    : Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 24),
-
-            // Location and Owner Information
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
+            const SizedBox(height: 16),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
               ),
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Pickup & Return Location',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    const Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: Colors.blue,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Pickup & Return Location',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 8),
                     Text(widget.vehicleData['location']),
                     const Divider(),
-                    const Text(
-                      'Car Owner',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    const Row(
+                      children: [
+                        Icon(Icons.calendar_today,
+                            color: Colors.blue, size: 20),
+                        SizedBox(width: 10),
+                        Text(
+                          'Car Owner',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 8),
                     Text(widget.vehicleData['owner']),
@@ -223,15 +313,19 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
-
-            // Price Breakdown
-            Card(
-              elevation: 6,
-              shape: RoundedRectangleBorder(
+            const SizedBox(height: 16),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.blue[50],
                 borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
               ),
-              color: Colors.blue[50],
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -269,8 +363,6 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
               ),
             ),
             const SizedBox(height: 24),
-
-            // Confirm Button
             SizedBox(
               width: double.infinity,
               height: 50,
@@ -286,7 +378,7 @@ class _BookingRequestScreenState extends State<BookingRequestScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BookingsPage(),
+                              builder: (context) => const BookingsPage(),
                             ));
                       }
                     : null,

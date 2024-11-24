@@ -35,14 +35,22 @@ class HomeCarCategories extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: const Offset(0, 3),
+            ),
+          ],
+          color: Colors.white,
         ),
         child: Column(
           children: [
             Container(
               height: 130,
               child: ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 ),
@@ -55,10 +63,10 @@ class HomeCarCategories extends StatelessWidget {
                 ),
               ),
             ),
-            Divider(
+            const Divider(
               height: 0,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Column(
@@ -68,18 +76,19 @@ class HomeCarCategories extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
                     carName,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.location_on_outlined,
                       color: Colors.black38,
                     ),
                     Text(
                       carLocation,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black38,
                       ),
@@ -93,12 +102,12 @@ class HomeCarCategories extends StatelessWidget {
                     children: [
                       Text(
                         '$seatCount seats',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         '₹$price/hr',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.blue,

@@ -13,18 +13,20 @@ class BookingsPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Colors.grey[50],
         appBar: AppBar(
+          backgroundColor: Colors.grey[50],
           title: const Text(
             'My Bookings',
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
-          bottom: TabBar(
-            labelColor: Theme.of(context).primaryColor,
+          bottom: const TabBar(
+            labelColor: Colors.blueAccent,
             unselectedLabelColor: Colors.grey,
             indicatorWeight: 3,
-            tabs: const [
+            tabs: [
               Tab(
                 icon: Icon(Icons.directions_car),
                 text: 'Current',
@@ -47,8 +49,7 @@ class BookingsPage extends StatelessWidget {
   }
 
   Widget _buildCurrentBookingsTab() {
-    final userId = FirebaseAuth.instance.currentUser!
-        .uid; // Replace with your method of getting the current user's UID.
+    final userId = FirebaseAuth.instance.currentUser!.uid;
 
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
@@ -111,9 +112,7 @@ class BookingsPage extends StatelessWidget {
   }
 
   Widget _buildBookingHistoryTab() {
-    final userId = FirebaseAuth.instance.currentUser!
-        .uid; // Replace with your method of getting the current user's UID.
-
+    final userId = FirebaseAuth.instance.currentUser!.uid;
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection("bookings")

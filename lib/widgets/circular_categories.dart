@@ -13,9 +13,14 @@ class CircularCategories extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(right: 18),
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(imageURL),
-              radius: 40,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black26),
+              shape: BoxShape.circle,
+            ),
+            child: Image.asset(
+              imageURL,
+              color: Colors.black38,
+              height: 80,
             ),
           ),
           SizedBox(

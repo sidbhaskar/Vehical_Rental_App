@@ -14,9 +14,9 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(201, 248, 248, 248),
       body: Stack(
         children: [
-          // Top content (fixed)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -24,11 +24,11 @@ class _HomepageState extends State<Homepage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 18),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             'Location',
                             style:
@@ -48,15 +48,37 @@ class _HomepageState extends State<Homepage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
                       child: Row(
-                        children: const [
-                          CircleAvatar(
-                            child: Icon(Icons.notifications),
-                            radius: 24,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border:
+                                  Border.all(color: Colors.black26, width: 1),
+                            ),
+                            child: const CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 24,
+                              child: Icon(
+                                Icons.notifications_none_outlined,
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
-                          SizedBox(width: 10),
-                          CircleAvatar(
-                            radius: 24,
-                            child: Icon(Icons.person),
+                          const SizedBox(width: 10),
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border:
+                                  Border.all(color: Colors.black26, width: 1),
+                            ),
+                            child: const CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 24,
+                              child: Icon(
+                                Icons.person_2_outlined,
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -73,8 +95,8 @@ class _HomepageState extends State<Homepage> {
                   border: Border.all(),
                   borderRadius: BorderRadius.circular(40),
                 ),
-                child: Row(
-                  children: const [
+                child: const Row(
+                  children: [
                     Icon(
                       Icons.search,
                       color: Colors.black45,
@@ -111,8 +133,7 @@ class _HomepageState extends State<Homepage> {
                             return CircularCategories(
                               categoryName:
                                   snapshot.data!.docs[index].data()['catagory'],
-                              imageURL:
-                                  snapshot.data!.docs[index].data()['imageURL'],
+                              imageURL: "assets/images/car.png",
                             );
                           },
                         ),
@@ -121,20 +142,17 @@ class _HomepageState extends State<Homepage> {
               ),
             ],
           ),
-
-          // Draggable bottom sheet
           DraggableScrollableSheet(
             snap: true,
             shouldCloseOnMinExtent: true,
-            initialChildSize: 0.55, // Initial height (40% of screen)
-            minChildSize: 0.55, // Minimum height when collapsed
-            maxChildSize:
-                0.87, // Maximum height when expanded (stops at search bar)
+            initialChildSize: 0.58,
+            minChildSize: 0.58,
+            maxChildSize: 0.87,
             builder: (context, scrollController) {
               return Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),

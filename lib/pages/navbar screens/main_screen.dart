@@ -13,14 +13,14 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int pageIndex = 1;
+  int pageIndex = 0;
 
   final pages = [
     const Homepage(),
     const BookingsPage(),
     const FavScreen(),
     const ChatScreen(),
-    const Profile(),
+    Profile(),
   ];
 
   @override
@@ -28,14 +28,11 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Main page content
           pages[pageIndex],
-
-          // Floating bottom navigation bar
           Positioned(
-            bottom: 20, // Adjust this value for the vertical position
-            left: 20, // Adjust for horizontal centering
-            right: 20, // Adjust for horizontal centering
+            bottom: 20,
+            left: 20,
+            right: 20,
             child: Container(
               height: 60,
               decoration: BoxDecoration(
@@ -61,12 +58,12 @@ class _MainScreenState extends State<MainScreen> {
                     },
                     icon: pageIndex == 0
                         ? const Icon(
-                            Icons.home_filled,
+                            Icons.drive_eta,
                             color: Colors.white,
-                            size: 35,
+                            size: 40,
                           )
                         : const Icon(
-                            Icons.home_outlined,
+                            Icons.drive_eta_outlined,
                             color: Colors.white,
                             size: 35,
                           ),
@@ -80,12 +77,12 @@ class _MainScreenState extends State<MainScreen> {
                     },
                     icon: pageIndex == 1
                         ? const Icon(
-                            Icons.work_rounded,
+                            Icons.calendar_month,
                             color: Colors.white,
-                            size: 35,
+                            size: 40,
                           )
                         : const Icon(
-                            Icons.work_outline_outlined,
+                            Icons.calendar_month_outlined,
                             color: Colors.white,
                             size: 35,
                           ),
@@ -101,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
                         ? const Icon(
                             Icons.favorite,
                             color: Colors.white,
-                            size: 35,
+                            size: 40,
                           )
                         : const Icon(
                             Icons.favorite_border,
@@ -120,7 +117,7 @@ class _MainScreenState extends State<MainScreen> {
                         ? const Icon(
                             Icons.chat_bubble,
                             color: Colors.white,
-                            size: 35,
+                            size: 40,
                           )
                         : const Icon(
                             Icons.chat_bubble_outline,
@@ -139,7 +136,7 @@ class _MainScreenState extends State<MainScreen> {
                         ? const Icon(
                             Icons.person,
                             color: Colors.white,
-                            size: 35,
+                            size: 40,
                           )
                         : const Icon(
                             Icons.person_outline,

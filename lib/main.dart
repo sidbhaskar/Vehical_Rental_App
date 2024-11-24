@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rental_app_assignment/pages/navbar%20screens/main_screen.dart';
-import 'package:rental_app_assignment/pages/onboarding%20screen/onboarding.dart';
 
 import 'firebase_options.dart';
-import 'pages/navbar screens/homepage.dart';
 import 'pages/onboarding screen/signup_page.dart';
 
 void main() async {
@@ -22,6 +21,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: GoogleFonts.poppins().fontFamily,
+      ),
       debugShowCheckedModeBanner: false,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
