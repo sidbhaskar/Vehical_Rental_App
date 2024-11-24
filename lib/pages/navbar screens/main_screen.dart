@@ -17,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final pages = [
     const Homepage(),
-    const BookingScreen(),
+    const BookingsPage(),
     const FavScreen(),
     const ChatScreen(),
     const Profile(),

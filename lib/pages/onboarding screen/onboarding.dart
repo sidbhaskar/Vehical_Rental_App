@@ -1,44 +1,158 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:rental_app_assignment/pages/onboarding%20screen/signup_page.dart';
+import 'package:flutter/services.dart';
+import 'package:rental_app_assignment/pages/navbar%20screens/main_screen.dart';
+import '../navbar screens/homepage.dart';
 
-import 'login_page.dart';
+class OnboardingPage extends StatefulWidget {
+  final String userId;
 
-class Onboarding extends StatefulWidget {
-  const Onboarding({super.key});
+  const OnboardingPage({
+    super.key,
+    required this.userId,
+  });
 
   @override
-  State<Onboarding> createState() => _OnboardingState();
+  State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _OnboardingState extends State<Onboarding> {
+class _OnboardingPageState extends State<OnboardingPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _ageController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _licenseController = TextEditingController();
+  String _selectedGender = 'Male';
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _ageController.dispose();
+    _phoneController.dispose();
+    _licenseController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _saveUserData() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userId)
+          .set({
+        'name': _nameController.text.trim(),
+        'age': int.parse(_ageController.text.trim()),
+        'phone': _phoneController.text.trim(),
+        'gender': _selectedGender,
+        'drivingLicense': _licenseController.text.trim(),
+      });
+
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MainScreen()),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.sizeOf(context).height;
-    final screenWidth = MediaQuery.sizeOf(context).width;
-
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: screenHeight * 0.7,
-            width: screenWidth,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-            ),
-          ),
-          SizedBox(height: 40),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SignUpPage(),
+      appBar: AppBar(
+        title: const Text('Complete Your Profile'),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Full Name',
+                  border: OutlineInputBorder(),
                 ),
-              );
-            },
-            child: Text('Get Started'),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _ageController,
+                decoration: const InputDecoration(
+                  labelText: 'Age',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _phoneController,
+                decoration: const InputDecoration(
+                  labelText: 'Phone Number',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.phone,
+              ),
+              const SizedBox(height: 16),
+              DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
+                  labelText: 'Gender',
+                  border: OutlineInputBorder(),
+                ),
+                value: _selectedGender,
+                items: ['Male', 'Female', 'Other']
+                    .map((gender) => DropdownMenuItem(
+                          value: gender,
+                          child: Text(gender),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  if (value != null) {
+                    setState(() => _selectedGender = value);
+                  }
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _licenseController,
+                decoration: const InputDecoration(
+                  labelText: 'Driving License Number',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                onPressed: _isLoading ? null : _saveUserData,
+                child: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text(
+                        'COMPLETE PROFILE',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:rental_app_assignment/widgets/specs_box.dart';
 
+import '../navbar screens/request _to_book_page.dart';
+
 class DetailsPage extends StatefulWidget {
   final String vehicleId;
 
@@ -56,21 +58,6 @@ class _DetailsPageState extends State<DetailsPage> {
       appBar: AppBar(
         title: Text('Vehicle Details'),
         centerTitle: true,
-        // actions: [
-        // IconButton(
-        //   onPressed: () {
-        //     setState(() {
-        //       vehicleData?["isFav"] = !vehicleData?["isFav"];
-        //     });
-        //   },
-        //   icon: Icon(
-        //     vehicleData?["isFav"] == true
-        //         ? Icons.favorite
-        //         : Icons.favorite_border,
-        //     color: vehicleData?["isFav"] == true ? Colors.red : null,
-        //   ),
-        // )
-        // ],
       ),
       body: isLoading
           ? Center(
@@ -216,7 +203,17 @@ class _DetailsPageState extends State<DetailsPage> {
                       SizedBox(height: 10),
                       Divider(),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BookingRequestScreen(
+                                vehicleData: vehicleData!,
+                                vehicleID: widget.vehicleId,
+                              ),
+                            ),
+                          );
+                        },
                         child: Center(
                           child: Container(
                             height: 70,
