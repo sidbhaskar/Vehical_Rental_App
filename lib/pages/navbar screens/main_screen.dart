@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int pageIndex = 0;
+  int pageIndex = 1;
 
   final pages = [
     const Homepage(),

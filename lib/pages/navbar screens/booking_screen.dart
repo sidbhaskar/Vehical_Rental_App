@@ -10,8 +10,10 @@ class BookingScreen extends StatefulWidget {
 class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('bookings'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Bookings'),
+      ),
     );
   }
 }
