@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rental_app_assignment/widgets/circular_categories.dart';
 import 'package:rental_app_assignment/widgets/home_car_categories.dart';
+import 'package:rental_app_assignment/widgets/search_result_bottomsheet.dart';
+
+import '../../widgets/searchbar.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -87,59 +90,65 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               const SizedBox(height: 30),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 18),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.search,
-                      color: Colors.black45,
-                      size: 40,
-                    ),
-                    SizedBox(width: 18),
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Search your ride...",
-                          border: InputBorder.none,
-                          hintStyle:
-                              TextStyle(fontSize: 18, color: Colors.black38),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              Searchbar(),
               const SizedBox(height: 30),
               SizedBox(
                 height: 120,
                 child: StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('vehicles')
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 18),
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            return CircularCategories(
-                              categoryName:
-                                  snapshot.data!.docs[index].data()['catagory'],
-                              imageURL: "assets/images/car.png",
-                            );
-                          },
-                        ),
-                      );
-                    }),
-              ),
+                  stream: FirebaseFirestore.instance
+                      .collection('vehicles')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+
+                    final uniqueCategories = <String>{};
+
+                    final docs = snapshot.data!.docs.where((doc) {
+                      final category = doc.data()['catagory'] as String;
+                      if (uniqueCategories.contains(category)) {
+                        return false;
+                      } else {
+                        uniqueCategories.add(category);
+                        return true;
+                      }
+                    }).toList();
+
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 18),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: docs.length,
+                        itemBuilder: (context, index) {
+                          final category =
+                              docs[index].data()['catagory'] as String;
+
+                          return GestureDetector(
+                            onTap: () {
+                              // Use showModalBottomSheet to display the CustomBottomSheet
+                              showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) {
+                                  return CustomBottomSheet(
+                                    searchQuery: category,
+                                    fieldName: 'catagory',
+                                  );
+                                },
+                              );
+                            },
+                            child: CircularCategories(
+                              categoryName: category,
+                              imageURL: docs[index].data()['imageURL'],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              )
             ],
           ),
           DraggableScrollableSheet(

@@ -122,6 +122,23 @@ class Profile extends StatelessWidget {
                   subTitle: userData['drivingLicense'],
                 ),
               ),
+              GestureDetector(
+                onTap: () {
+                  FirebaseAuth.instance.signOut();
+                },
+                child: Center(
+                  child: Container(
+                    padding: EdgeInsets.all(18),
+                    child: Text(
+                      'Sign out',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
             ],
           );
         },

@@ -18,7 +18,6 @@ class _MainScreenState extends State<MainScreen> {
   final pages = [
     const Homepage(),
     const BookingsPage(),
-    const FavScreen(),
     const ChatScreen(),
     Profile(),
   ];
@@ -87,6 +86,25 @@ class _MainScreenState extends State<MainScreen> {
                             size: 35,
                           ),
                   ),
+                  // IconButton(
+                  //   enableFeedback: false,
+                  //   onPressed: () {
+                  //     setState(() {
+                  //       pageIndex = 2;
+                  //     });
+                  //   },
+                  //   icon: pageIndex == 2
+                  //       ? const Icon(
+                  //           Icons.favorite,
+                  //           color: Colors.white,
+                  //           size: 40,
+                  //         )
+                  //       : const Icon(
+                  //           Icons.favorite_border,
+                  //           color: Colors.white,
+                  //           size: 35,
+                  //         ),
+                  // ),
                   IconButton(
                     enableFeedback: false,
                     onPressed: () {
@@ -95,25 +113,6 @@ class _MainScreenState extends State<MainScreen> {
                       });
                     },
                     icon: pageIndex == 2
-                        ? const Icon(
-                            Icons.favorite,
-                            color: Colors.white,
-                            size: 40,
-                          )
-                        : const Icon(
-                            Icons.favorite_border,
-                            color: Colors.white,
-                            size: 35,
-                          ),
-                  ),
-                  IconButton(
-                    enableFeedback: false,
-                    onPressed: () {
-                      setState(() {
-                        pageIndex = 3;
-                      });
-                    },
-                    icon: pageIndex == 3
                         ? const Icon(
                             Icons.chat_bubble,
                             color: Colors.white,
@@ -129,10 +128,10 @@ class _MainScreenState extends State<MainScreen> {
                     enableFeedback: false,
                     onPressed: () {
                       setState(() {
-                        pageIndex = 4;
+                        pageIndex = 3;
                       });
                     },
-                    icon: pageIndex == 4
+                    icon: pageIndex == 3
                         ? const Icon(
                             Icons.person,
                             color: Colors.white,

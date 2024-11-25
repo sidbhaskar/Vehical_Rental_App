@@ -31,7 +31,7 @@ class UserInfoTile extends StatelessWidget {
         ),
         subtitle: Text(
           subTitle,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             color: Colors.black87,
             fontWeight: FontWeight.w500,
@@ -39,6 +39,5 @@ class UserInfoTile extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

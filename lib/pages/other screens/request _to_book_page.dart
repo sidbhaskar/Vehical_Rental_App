@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rental_app_assignment/pages/navbar%20screens/booking_screen.dart';
-import 'package:rental_app_assignment/pages/navbar%20screens/homepage.dart';
+
 
 class BookingRequestScreen extends StatefulWidget {
   final Map<String, dynamic> vehicleData;

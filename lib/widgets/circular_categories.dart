@@ -17,10 +17,13 @@ class CircularCategories extends StatelessWidget {
               border: Border.all(color: Colors.black26),
               shape: BoxShape.circle,
             ),
-            child: Image.asset(
-              imageURL,
-              color: Colors.black38,
-              height: 80,
+            child: ClipOval(
+              child: Image.network(
+                imageURL,
+                height: 80,
+                width: 80,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           SizedBox(
@@ -30,6 +33,11 @@ class CircularCategories extends StatelessWidget {
             margin: EdgeInsets.only(right: 18),
             child: Text(
               categoryName,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.black54,
+              ),
             ),
           ),
         ],
