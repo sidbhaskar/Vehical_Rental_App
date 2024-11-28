@@ -13,6 +13,7 @@ class UserInfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       child: ListTile(
         leading: Container(
           padding: EdgeInsets.all(8),

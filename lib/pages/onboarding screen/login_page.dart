@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rental_app_assignment/pages/navbar%20screens/homepage.dart';
+import 'package:rental_app_assignment/pages/navbar%20screens/main_screen.dart';
 import 'package:rental_app_assignment/pages/onboarding%20screen/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -35,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       if (userCredential.user != null) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Homepage()),
+          MaterialPageRoute(builder: (context) => MainScreen()),
         );
       }
     } on FirebaseAuthException catch (e) {
@@ -59,9 +60,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        backgroundColor: Colors.grey[100],
-      ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -71,22 +69,8 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 40),
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.blue.shade800,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Icon(
-                        Icons.directions_car,
-                        size: 60,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 40),
+                  Image.asset("assets/images/bg.png"),
+                  // const SizedBox(height: 40),
                   Text(
                     'Get back on tracks',
                     style: TextStyle(

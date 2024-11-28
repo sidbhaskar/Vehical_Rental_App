@@ -58,7 +58,6 @@ class _DetailsPageState extends State<DetailsPage> {
       backgroundColor: Colors.grey[50],
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: Container(
@@ -283,7 +282,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                               ),
 
-                              const SizedBox(height: 30),
+                              const SizedBox(height: 60),
 
                               GestureDetector(
                                 onTap: () {

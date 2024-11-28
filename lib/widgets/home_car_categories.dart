@@ -35,19 +35,21 @@ class HomeCarCategories extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 2,
-              offset: const Offset(0, 3),
-            ),
-          ],
-          color: Colors.white,
+          color: const Color.fromARGB(255, 249, 249, 249),
+
+          // boxShadow: [
+          //   BoxShadow(
+          //     spreadRadius: 1,
+          //     blurRadius: 2,
+          //     offset: const Offset(0, 3),
+          //   ),
+          // ],
+          // color: Colors.white,
         ),
         child: Column(
           children: [
             Container(
+              padding: EdgeInsets.all(18),
               height: 130,
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(

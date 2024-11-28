@@ -10,6 +10,7 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 249, 249, 249),
       body: StreamBuilder<DocumentSnapshot>(
         stream: _firestore
             .collection('users')
@@ -160,6 +161,7 @@ class Profile extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Card(
+          color: Colors.white,
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
